@@ -359,9 +359,9 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:19px;heigh
       <div class="srcrow">
   <span class="bdot" id="sdot"></span>
   <span id="slbl">جارٍ تحميل...</span>
-  <span style="margin-right:8px;font-size:10px;color:var(--t3)" title="مصادر البيانات: metals.live (رئيسي) | corsproxy | allorigins | Yahoo Finance">
+  <span style="margin-right:8px;font-size:10px;color:var(--t3)" title="مصادر البيانات: gold-api.com (رئيسي) | corsproxy | allorigins">
     <i class="fa-solid fa-circle-info" style="color:var(--gold);opacity:.5"></i>
-    metals.live (رئيسي)
+    gold-api.com (رئيسي)
   </span>
 </div>
     </div>
@@ -737,17 +737,18 @@ async function changePw(){
 }
 
 // ── Price Sources (priority order) ────────────────────────────────────────
-// 1. metals.live direct          (fastest, most accurate)
-// 2. metals.live via corsproxy   (same source, different proxy)
-// 3. metals.live via allorigins  (backup proxy)
-// 4. metals.live via codetabs    (backup proxy 2)
-// 5. Yahoo Finance via allorigins (fallback source)
+// 1. gold-api.com direct         (free, no auth, primary source)
+// 2. gold-api.com via corsproxy   (backup proxy)
+// 3. investing.com via proxy      (last resort - may be blocked by Cloudflare)
 // 6. lastValidP                  (last good price)
 // 7. manual input
 
-const METALS_URL='https://api.metals.live/v1/spot/gold';
-const exMetals=d=>Array.isArray(d)?d[0]?.price:d?.price;
-const exYahoo=d=>d?.chart?.result?.[0]?.meta?.regularMarketPrice;
+const GOLD_API_URL='https://api.gold-api.com/price/XAU';
+const exGoldApi=d=>{
+  // gold-api.com returns {price:3285.75, symbol:'XAU', ...}
+  const pr=parseFloat(d?.price||d?.ask||d?.bid||0);
+  return(pr>500&&pr<100000)?pr:null;
+};
 
 async function fetchLive(){
   const b=document.getElementById('refBtn'),ic=document.getElementById('refIcon');
@@ -755,42 +756,35 @@ async function fetchLive(){
   slbl('\u062c\u0627\u0631\u0650 \u062a\u062d\u0645\u064a\u0644 \u0627\u0644\u0633\u0639\u0631...');updDot('orange');
   let p=null,src='';
 
-  // 1. metals.live DIRECT
+  // 1. gold-api.com DIRECT (free, no auth, primary source)
   if(!p){
-    p=await tf(METALS_URL,exMetals,'\ud83d\udfe2 metals.live',6000);
-    if(p)src='metals.live \u0645\u0628\u0627\u0634\u0631\u0629';
+    p=await tf(GOLD_API_URL,exGoldApi,'\ud83e\udd47 gold-api.com',5000);
+    if(p)src='gold-api.com';
   }
 
-  // 2. metals.live via corsproxy.io
+  // 2. gold-api.com via corsproxy
   if(!p){
-    p=await tf('https://corsproxy.io/?'+encodeURIComponent(METALS_URL),exMetals,'\ud83d\udfe1 metals.live (corsproxy)',7000);
-    if(p)src='metals.live \u0639\u0628\u0631 corsproxy';
+    p=await tf('https://corsproxy.io/?'+encodeURIComponent(GOLD_API_URL),exGoldApi,'\ud83e\udd47 gold-api.com (proxy)',6000);
+    if(p)src='gold-api.com (proxy)';
   }
 
-  // 3. metals.live via allorigins
+  // 3. investing.com - HTML scraping via proxy (backup)
   if(!p){
-    p=await tf('https://api.allorigins.win/raw?url='+encodeURIComponent(METALS_URL),exMetals,'\ud83d\udfe0 metals.live (allorigins)',8000);
-    if(p)src='metals.live \u0639\u0628\u0631 allorigins';
-  }
-
-  // 4. metals.live via codetabs proxy
-  if(!p){
-    p=await tf('https://api.codetabs.com/v1/proxy?quest='+encodeURIComponent(METALS_URL),exMetals,'\u26aa metals.live (codetabs)',9000);
-    if(p)src='metals.live \u0639\u0628\u0631 codetabs';
-  }
-
-  // 5. Yahoo Finance (XAU futures) via allorigins
-  if(!p){
-    const yUrl='https://query1.finance.yahoo.com/v8/finance/chart/GC%3DF?interval=1m&range=1d';
-    p=await tf('https://api.allorigins.win/raw?url='+encodeURIComponent(yUrl),exYahoo,'\ud83d\udfe1 Yahoo Finance',11000);
-    if(p)src='Yahoo Finance';
-  }
-
-  // 6. Yahoo Finance via corsproxy
-  if(!p){
-    const yUrl='https://query2.finance.yahoo.com/v8/finance/chart/GC%3DF?interval=1m&range=1d';
-    p=await tf('https://corsproxy.io/?'+encodeURIComponent(yUrl),exYahoo,'\u26ab Yahoo Finance (backup)',12000);
-    if(p)src='Yahoo Finance (backup)';
+    const exInv=d=>{
+      const s=String(d);
+      const patterns=[
+        /instrument-price-last[^>]*>\s*([0-9,]+\.?[0-9]*)/i,
+        /"last":\s*"?([0-9]+\.?[0-9]*)"?/i,
+        /XAU[^\/][^0-9]*([3-9][0-9]{3}\.[0-9]{2})/
+      ];
+      for(const rx of patterns){
+        const m=s.match(rx);
+        if(m){const pr=parseFloat(m[1].replace(/,/g,''));if(pr>500&&pr<100000)return pr;}
+      }
+      return null;
+    };
+    p=await tf('https://api.allorigins.win/raw?url='+encodeURIComponent('https://www.investing.com/currencies/xau-usd'),exInv,'\ud83d\udcc8 investing.com',14000);
+    if(p)src='investing.com';
   }
 
   ic.classList.remove('spinning');b.disabled=false;
