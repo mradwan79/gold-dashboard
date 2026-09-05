@@ -182,6 +182,141 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:19px;heigh
 #toast{position:fixed;bottom:22px;right:22px;z-index:999;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;padding:10px 16px;border-radius:11px;font-weight:700;font-size:12px;opacity:0;transform:translateY(18px);transition:.3s;pointer-events:none;display:flex;align-items:center;gap:6px;box-shadow:0 8px 28px rgba(255,215,0,.3)}
 #toast.show{opacity:1;transform:translateY(0)}
 .empty{text-align:center;padding:28px;color:var(--t3);font-size:12px}
+
+/* ══ LIGHT THEME "Professional Polish" ══════════════════════════════════ */
+body.light{
+  background:#F0EDE8;
+  color:#1C1C2E;
+}
+body.light::before{
+  background:radial-gradient(ellipse 60% 50% at 15% 15%,rgba(184,134,11,.07),transparent 60%),
+             radial-gradient(ellipse 50% 60% at 85% 85%,rgba(139,105,20,.05),transparent 60%);
+}
+body.light #particles{display:none}
+body.light .wrap{position:relative;z-index:1}
+
+/* CSS Variables override */
+body.light{
+  --gold:#B8860B;--gold2:#8B6914;
+  --bg:#F0EDE8;
+  --card:rgba(255,255,255,.92);
+  --ch:rgba(184,134,11,.09);
+  --b:rgba(0,0,0,.1);
+  --bb:rgba(184,134,11,.45);
+  --t:#1C1C2E;
+  --t2:rgba(28,28,46,.7);
+  --t3:rgba(28,28,46,.42);
+  --gr:#1a7a45;
+  --gd:rgba(26,122,69,.1);
+  --rd:#b71c1c;
+  --rdd:rgba(183,28,28,.09);
+  --bl:#1565C0;
+  --or:#e65100;
+  --pu:#6A1B9A;
+  --te:#00695C;
+}
+
+/* Backgrounds & shadows */
+body.light header{border-color:rgba(0,0,0,.1)}
+body.light .price-banner{
+  background:linear-gradient(135deg,rgba(255,255,255,.95),rgba(248,243,235,.9));
+  border-color:rgba(184,134,11,.35);
+  box-shadow:0 4px 24px rgba(0,0,0,.08),0 1px 3px rgba(0,0,0,.06);
+}
+body.light .price-banner::before{background:linear-gradient(90deg,transparent,rgba(184,134,11,.04),transparent)}
+body.light #pdisp{background:linear-gradient(135deg,#B8860B,#8B6914);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+body.light .mrow input{background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.15);color:#1C1C2E}
+body.light .sarrow input{background:rgba(0,0,0,.05);border-color:rgba(0,0,0,.15);color:#1C1C2E}
+
+/* Cards */
+body.light .card{
+  background:rgba(255,255,255,.95);
+  border-color:rgba(0,0,0,.08);
+  box-shadow:0 2px 12px rgba(0,0,0,.07);
+}
+body.light .card:hover{background:#fff;border-color:rgba(184,134,11,.35);box-shadow:0 4px 20px rgba(0,0,0,.1)}
+body.light .card.green{background:rgba(232,245,240,.9)}
+body.light .card.red{background:rgba(253,235,235,.9)}
+body.light .card.blue{background:rgba(232,240,253,.9)}
+body.light .card.teal{background:rgba(230,247,245,.9)}
+body.light .card.purple2{background:rgba(243,235,252,.9)}
+
+/* Table */
+body.light .tw{background:#fff;border-color:rgba(0,0,0,.1);box-shadow:0 2px 12px rgba(0,0,0,.06)}
+body.light thead th{background:rgba(184,134,11,.07);color:rgba(28,28,46,.55)}
+body.light tbody tr{border-color:rgba(0,0,0,.06)}
+body.light tbody tr:hover{background:rgba(184,134,11,.05)}
+body.light tfoot td{background:rgba(184,134,11,.05);border-color:rgba(184,134,11,.3)}
+
+/* Forms */
+body.light .ap,body.light .scp,body.light .spkp,body.light .alp,body.light .hp,body.light .bep{
+  background:rgba(255,255,255,.92);border-color:rgba(0,0,0,.09);
+  box-shadow:0 2px 10px rgba(0,0,0,.06);
+}
+body.light .fgrp input,body.light .fgrp select,body.light .alf input,body.light .alf select{
+  background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.15);color:#1C1C2E;
+}
+body.light .fgrp input:focus,body.light .fgrp select:focus{background:#fff;border-color:#B8860B}
+body.light .fgrp select option{background:#fff;color:#1C1C2E}
+body.light .calc-box{background:rgba(184,134,11,.06);border-color:rgba(184,134,11,.2)}
+
+/* Modals */
+body.light .modal{background:rgba(0,0,0,.45)}
+body.light .mbox{background:#fff;border-color:rgba(184,134,11,.35);box-shadow:0 20px 60px rgba(0,0,0,.15)}
+
+/* Buttons */
+body.light .btn-ref{background:rgba(255,255,255,.9);border-color:rgba(0,0,0,.12);color:#B8860B}
+body.light .btn-ref:hover{background:#fff;border-color:#B8860B}
+body.light .btn-s{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.15);color:#1C1C2E}
+body.light .btn-bulk{background:rgba(230,81,0,.08);border-color:rgba(230,81,0,.3);color:#e65100}
+body.light .bi{border-color:rgba(0,0,0,.12);color:rgba(28,28,46,.55)}
+body.light .sprd-lbl{border-color:rgba(0,0,0,.25);color:#1C1C2E}
+
+/* Sparkline */
+body.light #spksvg{filter:hue-rotate(0deg)}
+body.light #spkLine{stroke:#B8860B}
+body.light #spkArea{fill:url(#sg_light)}
+
+/* Alerts */
+body.light .ali{background:rgba(0,0,0,.03);border-color:rgba(0,0,0,.08)}
+body.light .ali.fired{border-color:#B8860B;background:rgba(184,134,11,.06)}
+
+/* History */
+body.light .hi{background:rgba(0,0,0,.03);border-color:rgba(0,0,0,.07)}
+body.light .ht{color:rgba(28,28,46,.45)}
+
+/* Scenario slider */
+body.light input[type=range]::-webkit-slider-thumb{border-color:#B8860B}
+
+/* Closed section */
+body.light .closed-sec{background:rgba(106,27,154,.04);border-color:rgba(106,27,154,.18)}
+body.light .add-closed-form{background:rgba(106,27,154,.04);border-color:rgba(106,27,154,.12)}
+body.light .sar-group{background:rgba(21,101,192,.04);border-color:rgba(21,101,192,.15)}
+body.light .usd-group{background:rgba(0,0,0,.03);border-color:rgba(0,0,0,.08)}
+
+/* Password overlay */
+body.light .pw-overlay{background:#F0EDE8}
+body.light .pw-box{background:#fff;border-color:rgba(184,134,11,.35);box-shadow:0 20px 60px rgba(0,0,0,.12)}
+body.light .pw-inp{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.15);color:#1C1C2E}
+body.light .pw-inp:focus{background:#fff;border-color:#B8860B}
+
+/* Breakeven bar */
+body.light .bep{background:rgba(255,255,255,.92)}
+body.light .betr{background:rgba(0,0,0,.08)}
+
+/* Scenario */
+body.light .scc{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.08)}
+body.light .scpr{background:linear-gradient(135deg,#B8860B,#8B6914);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+
+/* Theme toggle button */
+.theme-btn{
+  background:var(--card);border:1px solid var(--b);
+  color:var(--gold);padding:7px 13px;border-radius:10px;
+  cursor:pointer;font-family:'Cairo',sans-serif;font-size:12px;
+  display:flex;align-items:center;gap:5px;transition:.2s;
+}
+.theme-btn:hover{background:var(--ch);border-color:var(--bb)}
+
 @media(max-width:768px){#pdisp{font-size:32px}.price-banner{padding:14px}.cards{grid-template-columns:repeat(2,1fr)}.fg{grid-template-columns:1fr 1fr}}
 </style>
 </head>
@@ -331,6 +466,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:19px;heigh
     </div>
     <div class="hdr-r">
       <span id="lastUpd">لم يتم التحديث بعد</span>
+      <button class="theme-btn" onclick="toggleTheme()" id="themeBtn" title="تغيير الثيم">
+        <i class="fa-solid fa-circle-half-stroke" id="themeIcon"></i>
+        <span id="themeLbl">فاتح</span>
+      </button>
       <button class="btn-ref" onclick="changePw()" title="تغيير كلمة السر">
         <i class="fa-solid fa-lock"></i> كلمة السر
       </button>
@@ -466,6 +605,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:19px;heigh
       <defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%" stop-color="#FFD700" stop-opacity="0.35"/>
         <stop offset="100%" stop-color="#FFD700" stop-opacity="0"/>
+      </linearGradient>
+      <linearGradient id="sg_light" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#B8860B" stop-opacity="0.25"/>
+        <stop offset="100%" stop-color="#B8860B" stop-opacity="0"/>
       </linearGradient></defs>
       <path id="spkArea" fill="url(#sg)" d=""/>
       <path id="spkLine" fill="none" stroke="#FFD700" stroke-width="2" d=""/>
@@ -1311,11 +1454,35 @@ function importData(event){
   reader.readAsText(file);
 }
 
+// ── Theme ─────────────────────────────────────────────────────────────────
+function toggleTheme(){
+  const isLight=document.body.classList.toggle('light');
+  localStorage.setItem('gp_theme',isLight?'light':'dark');
+  updateThemeBtn(isLight);
+}
+function updateThemeBtn(isLight){
+  const icon=document.getElementById('themeIcon');
+  const lbl=document.getElementById('themeLbl');
+  if(isLight){
+    icon.className='fa-solid fa-sun';
+    lbl.textContent='داكر';
+  } else {
+    icon.className='fa-solid fa-circle-half-stroke';
+    lbl.textContent='فاتح';
+  }
+}
+function initTheme(){
+  const saved=localStorage.getItem('gp_theme');
+  if(saved==='light'){document.body.classList.add('light');updateThemeBtn(true);}
+  else{updateThemeBtn(false);}
+}
+
 // ── Init
+
 
 if('Notification'in window&&Notification.permission==='default')Notification.requestPermission();
 document.getElementById('newDate').value=new Date().toISOString().slice(0,10);
-initPw();mkPt();renderAll();fetchLive();if(_migratedFrom)setTimeout(()=>toast('\u062a\u0645 \u0627\u0633\u062a\u0631\u062f\u0627\u062f \u0628\u064a\u0627\u0646\u0627\u062a\u0643 \u2705 ('+_migratedFrom+')'),1500);
+initTheme();initPw();mkPt();renderAll();fetchLive();if(_migratedFrom)setTimeout(()=>toast('\u062a\u0645 \u0627\u0633\u062a\u0631\u062f\u0627\u062f \u0628\u064a\u0627\u0646\u0627\u062a\u0643 \u2705 ('+_migratedFrom+')'),1500);
 if(cur){document.getElementById('scenSlider').value=Math.min(6500,Math.max(3000,cur));updateScen(cur);}
 setInterval(fetchLive,180000);
 document.addEventListener('keydown',e=>{if((e.key==='r'||e.key==='R')&&!e.ctrlKey&&!e.metaKey)fetchLive();});
